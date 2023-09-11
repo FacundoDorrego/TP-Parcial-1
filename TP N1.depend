@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1694194427 source:c:\users\facun\onedrive\escritorio\facultad\tp n1\main.cpp
+	<iostream>
+	"functpn1.h"
+	<cstring>
+
+1694194933 c:\users\facun\onedrive\escritorio\facultad\tp n1\functpn1.h
+	<iostream>
+	<cstring>
+
+1694282918 source:c:\users\facun\onedrive\escritorio\facultad\tp parcial n1\main.cpp
+	<iostream>
+	<cstring>
+	"functpn1.h"
+
+1694284603 c:\users\facun\onedrive\escritorio\facultad\tp parcial n1\functpn1.h
+	<iostream>
+	<cstring>
+	"cargarCadenas.h"
+
+1694243415 c:\users\facun\onedrive\escritorio\facultad\tp parcial n1\funglobales.h
+	<iostream>
+	<cstring>
+	"functpn1.h"
+
+1694243484 c:\users\facun\onedrive\escritorio\facultad\tp parcial n1\cargarcadenas.h
+	<iostream>
+	<cstring>
+
