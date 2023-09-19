@@ -11,7 +11,7 @@ void cargarCadenas(char *pal, int tam){
         pal[i]=cin.get();
         if(pal[i]=='\n') break;
     }
-    pal[i]='\o';
+    pal[i]='\\o';
     fflush(stdin);
 }
 

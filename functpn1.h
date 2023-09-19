@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include "cargarCadenas.h"
+
 using namespace std;
 #ifndef FUNCTPN1_H_INCLUDED
 #define FUNCTPN1_H_INCLUDED
@@ -22,7 +23,7 @@ private:
 
 public:
     //metodos
-    Jugador(int docuDni=0,const char *nom="???",const char *apelli="???",const char *ema="???",const char *telef="0000",int c=0,int d=0,int nume=0,int fecha=0,float matri=0){
+    Jugador(int docuDni=0,const char *nom="???",const char *apelli="???",const char *ema="???",const char *telef="0000",int c=0,int d=0,int nume=0,int fecha=0,float matri=0,bool e = false){
         dni=docuDni;
         strcpy(nombre,nom);
         strcpy(apellido,apelli);
@@ -33,34 +34,65 @@ public:
         numeroequipo=nume;
         fechainscrip=fecha;
         matricula=matri;
-        estado=false;
+        estado=e;
     }
 
     void CargarDatos();
     void MostrarDatos();
     void agregarRegistro();
+    bool borrarJugador();
+    bool ListarDNI();
+    int buscarDNI(int docuDni);
+
     void guardar() {
-    FILE* archivo = fopen("jugadores.dat", "ab");
-    if (archivo != nullptr) {
-            fwrite(this, sizeof(Jugador), 1, archivo);
-            fclose(archivo);
+        FILE* archivo = fopen("jugadores.dat", "ab");
+        if (archivo != NULL) {
+                fwrite(this, sizeof(Jugador), 1, archivo);
+                fclose(archivo);
         } else {
             cout << "Error al abrir el archivo para escritura." << endl;
             }
     }
-    static void mostrar() {
+
+
+    void ListarTodo() {
         FILE* archivo = fopen("jugadores.dat", "rb");
-        if (archivo != nullptr) {
-            Jugador jugador;
-            while (fread(&jugador, sizeof(Jugador), 1, archivo)) {
-                jugador.MostrarDatos();
-                cout << "-------------------------" << endl;
-            }
-            fclose(archivo);
+        if (archivo != NULL) {
+            Jugador reg;
+            while (fread(&reg, sizeof(Jugador), 1, archivo)) {
+                if(reg.getEstado()==true){
+                    reg.MostrarDatos();
+                    cout << "-------------------------" << endl;
+                    }
+                }
+                fclose(archivo);
         } else {
             cout << "Error al abrir el archivo para lectura." << endl;
         }
     }
+
+
+    Jugador leerDNI(int pos){
+        Jugador reg;
+        reg.setEstado(false);
+        FILE* archivo = fopen("jugadores.dat", "rb");
+        int posLectura=0;
+        if(archivo==NULL){
+                cout<<"Error al abrir el archivo de lectura";
+                return reg;
+        }
+        while (fread(&reg, sizeof(Jugador), 1, archivo)==1) {
+                if(pos==posLectura){
+                    fclose(archivo);
+                    return reg;
+                }
+                posLectura++;
+        }
+        fclose(archivo);
+        reg.setEstado(false);
+        return reg;
+}
+        //Mostrar datos solo de ese dni
 
     //setters
     void setNombre(const char *nom){
@@ -79,19 +111,22 @@ public:
         dni=docuDni;
         }
     void setClaustro(int c){
-            claustro=c;
+        claustro=c;
         }
     void setDeporte(int d){
-            deporte=d;
+        deporte=d;
         }
     void setNumEquipo(int nume){
-            numeroequipo=nume;
+        numeroequipo=nume;
         }
     void setFecha(int fecha){
-            fechainscrip=fecha;
+        fechainscrip=fecha;
         }
     void setMatricula(float matri){
-            matricula=matri;
+       matricula=matri;
+        }
+    void setEstado(bool e){
+        estado=e;
         }
 
     //getters
@@ -131,6 +166,7 @@ public:
 };
 
 void Jugador::CargarDatos(){
+    setEstado(true);
     cout<<"DNI: ";
     cin>>dni;
     cout<<"NOMBRE: ";
@@ -151,7 +187,6 @@ void Jugador::CargarDatos(){
     cin>>fechainscrip;
     cout<<"MATRICULA: $";
     cin>>matricula;
-    estado=true;
 }
 
 void Jugador::MostrarDatos(){
@@ -168,5 +203,60 @@ void Jugador::MostrarDatos(){
     cout << "Estado: " << estado << endl;
 }
 
+int Jugador::buscarDNI(int docuDni){
+    FILE* archivo = fopen("jugadores.dat", "rb");
+    int pos=0;
+    if (archivo != NULL) {
+            Jugador reg;
+            while (fread(&reg, sizeof(Jugador), 1, archivo)) {
+                    if(docuDni==reg.getDNI()){
+                         fclose(archivo);
+                         return pos;
+                    }
+                    pos++;
+            }
+            fclose(archivo);
+            return -2;
+        }
+}
+
+bool Jugador::ListarDNI(){
+        int docuDni;
+        int pos=0;
+        cout<<"Introducir DNI a buscar: ";
+        cin>>docuDni;
+        pos=buscarDNI(docuDni);
+        if(pos==-1){
+            cout<<"No existe ese DNI"<<endl;
+            return false;
+        }
+        Jugador reg;
+        reg=leerDNI(pos);
+        if(reg.getEstado()==true){
+            cout<<"DNI encontrado y es el siguiente:"<<endl;
+            reg.MostrarDatos();
+        } else {cout<<"El DNI no existe"<<endl;}
+        reg.setEstado(false);
+        return true;
+    }
+
+bool Jugador::borrarJugador(){
+    int docuDni;
+    FILE* archivo = fopen("jugadores.dat", "rb+");
+    if(archivo == NULL){
+        return false;
+    }
+    cout<<"Introducir DNI a borrar: ";
+    cin>>docuDni;
+    int pos = buscarDNI(docuDni);
+    fseek(archivo,pos * sizeof(Jugador),0);
+    Jugador jugadorborrado;
+    jugadorborrado.setEstado(false);
+    fwrite(&jugadorborrado,sizeof(Jugador),1,archivo);
+    fclose(archivo);
+    cout<<"Jugador con DNI "<< docuDni <<" borrado exitosamente.";
+    return true;
+
+}
 
 #endif // FUNCTPN1_H_INCLUDED

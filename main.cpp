@@ -9,7 +9,9 @@ int main(){
     while(true){
         cout<<"MENU"<<endl;
         cout<<"1. AGREGAR JUGADOR"<<endl;
-        cout<<"2. MOSTRAR JUGADOR"<<endl;
+        cout<<"2. LISTAR JUGADOR POR DNI"<<endl;
+        cout<<"3. LISTAR TODOS LOS JUGADORES"<<endl;
+        cout<<"5. ELIMINAR REGISTRO DE JUGADOR"<<endl;
         cout<<"0. SALIR"<<endl;
         cout<<"OPCION: ";
         cin>>opc;
@@ -21,7 +23,15 @@ int main(){
                 break;
 
             case 2:
-                jugador.mostrar();
+                jugador.ListarDNI();
+                break;
+
+            case 3:
+                jugador.ListarTodo();
+                break;
+
+            case 5:
+                jugador.borrarJugador();
                 break;
 
             case 0:
