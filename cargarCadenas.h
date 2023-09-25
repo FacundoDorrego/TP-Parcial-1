@@ -9,9 +9,11 @@ void cargarCadenas(char *pal, int tam){
     fflush(stdin);
     for(i=0;i<tam;i++){
         pal[i]=cin.get();
-        if(pal[i]=='\n') break;
+        if(pal[i]=='\n'){
+            break;
+        } 
     }
-    pal[i]='\\o';
+    pal[i]='\0';
     fflush(stdin);
 }
 

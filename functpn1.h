@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include "cargarCadenas.h"
-
+#include "fecha.h"
 using namespace std;
 #ifndef FUNCTPN1_H_INCLUDED
 #define FUNCTPN1_H_INCLUDED
@@ -17,32 +17,32 @@ private:
     int claustro;
     int deporte;
     int numeroequipo;
-    int fechainscrip;
+    Fecha fechainscrip;
     float matricula;
     bool estado;
 
 public:
     //metodos
-    Jugador(int docuDni=0,const char *nom="???",const char *apelli="???",const char *ema="???",const char *telef="0000",int c=0,int d=0,int nume=0,int fecha=0,float matri=0,bool e = false){
-        dni=docuDni;
-        strcpy(nombre,nom);
-        strcpy(apellido,apelli);
-        strcpy(email,ema);
-        strcpy(telefono,telef);
-        claustro=c;
-        deporte=d;
-        numeroequipo=nume;
-        fechainscrip=fecha;
-        matricula=matri;
-        estado=e;
+    Jugador(int docuDni=0,const char *nom="???",const char *apelli="???",const char *ema="???",const char *telef="0000",int c=0,int d=0,int nume=0,Fecha fecha=Fecha(),float matri=0,bool e = false){
+    dni=docuDni;
+    strcpy(nombre,nom);
+    strcpy(apellido,apelli);
+    strcpy(email,ema);
+    strcpy(telefono,telef);
+    claustro=c;
+    deporte=d;
+    numeroequipo=nume;
+    fechainscrip=fecha;
+    matricula=matri;
+    estado=e;
     }
 
     void CargarDatos();
     void MostrarDatos();
-    void agregarRegistro();
     bool borrarJugador();
     bool ListarDNI();
     int buscarDNI(int docuDni);
+    bool modFecha();
 
     void guardar() {
         FILE* archivo = fopen("jugadores.dat", "ab");
@@ -58,14 +58,13 @@ public:
     void ListarTodo() {
         FILE* archivo = fopen("jugadores.dat", "rb");
         if (archivo != NULL) {
-            Jugador reg;
-            while (fread(&reg, sizeof(Jugador), 1, archivo)) {
-                if(reg.getEstado()==true){
-                    reg.MostrarDatos();
+            while (fread(this, sizeof(Jugador), 1, archivo)) {
+                if(getEstado()==true){
+                    MostrarDatos();
                     cout << "-------------------------" << endl;
                     }
-                }
-                fclose(archivo);
+            }
+        fclose(archivo);
         } else {
             cout << "Error al abrir el archivo para lectura." << endl;
         }
@@ -119,7 +118,7 @@ public:
     void setNumEquipo(int nume){
         numeroequipo=nume;
         }
-    void setFecha(int fecha){
+    void setFecha(Fecha fecha){
         fechainscrip=fecha;
         }
     void setMatricula(float matri){
@@ -154,7 +153,7 @@ public:
     int getNumeroEquipo(){
         return numeroequipo;
         }
-    int getFecha(){
+    Fecha getFecha(){
         return fechainscrip;
         }
     int getMatricula(){
@@ -166,9 +165,18 @@ public:
 };
 
 void Jugador::CargarDatos(){
+    Jugador reg;
     setEstado(true);
     cout<<"DNI: ";
     cin>>dni;
+    int posExistente = reg.buscarDNI(dni);
+    if (posExistente != -1) {
+        Jugador regExistente = leerDNI(posExistente);
+        if (regExistente.getEstado() != false) {
+            cout << "El DNI ya existe en el registro. No se permite duplicar DNI." << endl;
+            return;
+        }
+    }
     cout<<"NOMBRE: ";
     cargarCadenas(nombre,30);
     cout << "APELLIDO: ";
@@ -177,14 +185,17 @@ void Jugador::CargarDatos(){
     cargarCadenas(email, 30);
     cout << "TELEFONO: ";
     cargarCadenas(telefono, 30);
-    cout<<"CLAUSTRO: ";
+    cout<<"CLAUSTRO: (1: docente; 2 alumno; 3 no docente; 4 graduado) ";
     cin>>claustro;
     cout<<"DEPORTE: ";
     cin>>deporte;
     cout<<"NUMERO DE EQUIPO: ";
     cin>>numeroequipo;
-    cout<<"FECHA DE INSCRIPCION (DIA): ";
-    cin>>fechainscrip;
+    cout<<"FECHA DE INSCRIPCION (DIA,MES,ANIO): ";
+    int day,month,year;
+    cin>>day>>month>>year;
+    Fecha fechaInscripcion(day,month,year);
+    setFecha(fechaInscripcion);
     cout<<"MATRICULA: $";
     cin>>matricula;
 }
@@ -195,10 +206,10 @@ void Jugador::MostrarDatos(){
     cout << "Apellido: " << apellido << endl;
     cout << "Email: " << email << endl;
     cout << "Telefono: " << telefono << endl;
-    cout << "Claustro: " << claustro << endl;
+    cout << "Claustro: (1: docente; 2 alumno; 3 no docente; 4 graduado) " << claustro << endl;
     cout << "Deporte: " << deporte << endl;
     cout << "Numero de equipo: " << numeroequipo << endl;
-    cout << "Fecha de inscripcion (DIA): " << fechainscrip << endl;
+    cout << "Fecha de inscripcion (DIA,MES,ANIO): " << fechainscrip.getDay() <<"/"<< fechainscrip.getMonth() <<"/"<<fechainscrip.getYear() << endl;
     cout << "Matricula: " << matricula << endl;
     cout << "Estado: " << estado << endl;
 }
@@ -215,9 +226,11 @@ int Jugador::buscarDNI(int docuDni){
                     }
                     pos++;
             }
-            fclose(archivo);
-            return -2;
         }
+    if (archivo == NULL){
+        return -2;
+    }
+    return -1;
 }
 
 bool Jugador::ListarDNI(){
@@ -226,8 +239,12 @@ bool Jugador::ListarDNI(){
         cout<<"Introducir DNI a buscar: ";
         cin>>docuDni;
         pos=buscarDNI(docuDni);
-        if(pos==-1){
+        if(pos==-1&&pos!=-2){
             cout<<"No existe ese DNI"<<endl;
+            return false;
+        }
+        if(pos==-2){
+            cout << "Error al abrir el archivo para lectura." << endl;
             return false;
         }
         Jugador reg;
@@ -249,14 +266,44 @@ bool Jugador::borrarJugador(){
     cout<<"Introducir DNI a borrar: ";
     cin>>docuDni;
     int pos = buscarDNI(docuDni);
+    if(pos==-1){
+            cout<<"No existe ese DNI"<<endl;
+            return false;
+            }
     fseek(archivo,pos * sizeof(Jugador),0);
-    Jugador jugadorborrado;
-    jugadorborrado.setEstado(false);
-    fwrite(&jugadorborrado,sizeof(Jugador),1,archivo);
-    fclose(archivo);
-    cout<<"Jugador con DNI "<< docuDni <<" borrado exitosamente.";
-    return true;
+        Jugador jugadorborrado;
+        jugadorborrado.setEstado(false);
+        fwrite(&jugadorborrado,sizeof(Jugador),1,archivo);
+        fclose(archivo);
+        cout<<"Jugador con DNI "<< docuDni <<" borrado exitosamente."<<endl;
+        return true;
+}
 
+bool Jugador::modFecha(){
+    int docuDni,day,month,year;
+    FILE* archivo = fopen("jugadores.dat", "rb+");
+    if(archivo == NULL){
+        return false;
+    }
+    cout<<"Introducir DNI del registro a modificar: ";
+    cin>>docuDni;
+    int pos = buscarDNI(docuDni);
+    if(pos==-1){
+            cout<<"No existe ese DNI"<<endl;
+            return false;
+            }
+    Jugador jugadorfecha;
+    fseek(archivo,pos * sizeof(Jugador),0);
+    fread(&jugadorfecha, sizeof(Jugador),1,archivo);
+    cout<<"Introducir fecha (DIA,MES,ANIO) "<<endl;
+    cin>>day>>month>>year;
+    Fecha fechaInscripcion(day,month,year);
+    jugadorfecha.setFecha(fechaInscripcion);
+    fseek(archivo,pos * sizeof(Jugador),0);
+    fwrite(&jugadorfecha,sizeof(Jugador),1,archivo);
+    fclose(archivo);
+    cout<<"La fecha del registro del jugador con DNI "<< docuDni <<" se ha cambiado exitosamente."<<endl;
+    return true;
 }
 
 #endif // FUNCTPN1_H_INCLUDED

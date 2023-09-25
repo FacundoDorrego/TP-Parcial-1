@@ -27,22 +27,21 @@
 	<iostream>
 	<cstring>
 
-1694808815 source:e:\utn\tp-parcial-1-parte-1\main.cpp
+1695172812 source:e:\utn\tp-parcial-1-parte-1\main.cpp
 	<iostream>
 	<cstring>
 	"functpn1.h"
 
-1694811436 e:\utn\tp-parcial-1-parte-1\functpn1.h
+1695174585 e:\utn\tp-parcial-1-parte-1\functpn1.h
 	<iostream>
 	<cstring>
 	"cargarCadenas.h"
+	"fecha.h"
 
-1694727924 e:\utn\tp-parcial-1-parte-1\cargarcadenas.h
+1695168953 e:\utn\tp-parcial-1-parte-1\cargarcadenas.h
 	<iostream>
 	<cstring>
 
-1694729818 e:\utn\tp-parcial-1-parte-1\fecha.h
-	<iostream>
-	<string.h>
-	<time.h>
+1695166940 e:\utn\tp-parcial-1-parte-1\fecha.h
+	<ctime>
 

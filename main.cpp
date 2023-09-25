@@ -11,6 +11,7 @@ int main(){
         cout<<"1. AGREGAR JUGADOR"<<endl;
         cout<<"2. LISTAR JUGADOR POR DNI"<<endl;
         cout<<"3. LISTAR TODOS LOS JUGADORES"<<endl;
+        cout<<"4. MODIFICAR FECHA"<<endl;
         cout<<"5. ELIMINAR REGISTRO DE JUGADOR"<<endl;
         cout<<"0. SALIR"<<endl;
         cout<<"OPCION: ";
@@ -28,6 +29,10 @@ int main(){
 
             case 3:
                 jugador.ListarTodo();
+                break;
+
+            case 4:
+                jugador.modFecha();
                 break;
 
             case 5:
