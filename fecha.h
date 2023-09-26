@@ -8,7 +8,7 @@ class Fecha
 public:
   Fecha(); // se cree con la fecha actual
   Fecha(int day, int month, int year);
-
+  void fechayear(int year);
   int getYear() ;
   void setYear(int year);
   int getMonth() ;
@@ -39,6 +39,12 @@ Fecha::Fecha(int day, int month, int year)
   setMonth(month);
   setYear(year);
 }
+
+void Fecha::fechayear(int year)
+{
+  setYear(year);
+}
+
 
 int Fecha::getYear() 
 {

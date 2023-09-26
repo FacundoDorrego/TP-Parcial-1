@@ -3,20 +3,14 @@
 #include "cargarCadenas.h"
 #include "fecha.h"
 using namespace std;
-#ifndef FUNCTPN1_H_INCLUDED
-#define FUNCTPN1_H_INCLUDED
+#ifndef JUGADOR_H_INCLUDED
+#define JUGADOR_H_INCLUDED
 
 class Jugador{
 private:
     //atributos
-    char nombre[30];
-    char apellido[30];
-    char email[30];
-    char telefono[30];
-    int dni;
-    int claustro;
-    int deporte;
-    int numeroequipo;
+    char nombre[30],apellido[30],email[30],telefono[30];
+    int dni,claustro,deporte,numeroequipo;
     Fecha fechainscrip;
     float matricula;
     bool estado;
@@ -54,7 +48,6 @@ public:
             }
     }
 
-
     void ListarTodo() {
         FILE* archivo = fopen("jugadores.dat", "rb");
         if (archivo != NULL) {
@@ -69,7 +62,6 @@ public:
             cout << "Error al abrir el archivo para lectura." << endl;
         }
     }
-
 
     Jugador leerDNI(int pos){
         Jugador reg;
@@ -165,6 +157,7 @@ public:
 };
 
 void Jugador::CargarDatos(){
+    int day,month,year;
     Jugador reg;
     setEstado(true);
     cout<<"DNI: ";
@@ -187,17 +180,28 @@ void Jugador::CargarDatos(){
     cargarCadenas(telefono, 30);
     cout<<"CLAUSTRO: (1: docente; 2 alumno; 3 no docente; 4 graduado) ";
     cin>>claustro;
+    if(claustro<=0||claustro>4){
+        cout << "Error claustro incorrecto." << endl;
+        return;
+    }
     cout<<"DEPORTE: ";
     cin>>deporte;
     cout<<"NUMERO DE EQUIPO: ";
     cin>>numeroequipo;
-    cout<<"FECHA DE INSCRIPCION (DIA,MES,ANIO): ";
-    int day,month,year;
-    cin>>day>>month>>year;
+    cout<<"FECHA DE INSCRIPCION (DIA): ";
+    cin>>day;
+    cout<<"FECHA DE INSCRIPCION (MES): ";
+    cin>>month;
+    cout<<"FECHA DE INSCRIPCION (ANIO): ";
+    cin>>year;
     Fecha fechaInscripcion(day,month,year);
     setFecha(fechaInscripcion);
     cout<<"MATRICULA: $";
     cin>>matricula;
+    if(matricula<0){
+        cout << "Error, solo se aceptan valores de 0 o positivos" << endl;
+        return;
+    }
 }
 
 void Jugador::MostrarDatos(){
@@ -306,4 +310,4 @@ bool Jugador::modFecha(){
     return true;
 }
 
-#endif // FUNCTPN1_H_INCLUDED
+#endif // JUGADOR_H_INCLUDED
