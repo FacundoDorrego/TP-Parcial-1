@@ -1,11 +1,9 @@
 #include <iostream>
 #include <cstring>
-#include "Jugador.h"
 #include "menus.h"
 using namespace std;
 
 int main(){
-    Jugador jugador;
     int opc;
     while(true){
         cout<<"MENU PRINCIPAL"<<endl;
@@ -21,11 +19,11 @@ int main(){
             case 1:
                 menujugadores();
                 break;
-            
+
             case 2:
                 menudeportes();
                 break;
-            
+
             case 0:
                 return 0;
                 break;

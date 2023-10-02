@@ -6,7 +6,7 @@ using namespace std;
 int menujugadores();
 int menudeportes();
 int menujugadores(){
-    Jugador deporte;
+    Jugador jugador;
     int opc;
     while(true){
         cout<<"MENU JUGADORES"<<endl;
@@ -23,24 +23,24 @@ int menujugadores(){
         system("cls");
         switch (opc){
             case 1:
-                deporte.CargarDatos();
-                deporte.guardar();
+                jugador.CargarDatos();
+                jugador.guardar();
                 break;
 
             case 2:
-                deporte.ListarDNI();
+                ListarDNIJugador();
                 break;
 
             case 3:
-                deporte.ListarTodo();
+                ListarTodoJugador();
                 break;
 
             case 4:
-                deporte.modFecha();
+                modFechaJugador();
                 break;
 
             case 5:
-                deporte.borrarJugador();
+                borrarJugador();
                 break;
 
             case 0:
@@ -79,19 +79,19 @@ int menudeportes(){
                 break;
 
             case 2:
-                deporte.ListarID();
+                ListarIDDeporte();
                 break;
 
             case 3:
-                deporte.ListarTodo();
+                ListarTodoDeporte();
                 break;
 
             case 4:
-                deporte.modOrigen();
+                modOrigenDeporte();
                 break;
 
             case 5:
-                deporte.borrarID();
+                borrarIDDeporte();
                 break;
 
             case 0:
