@@ -1,3 +1,4 @@
+//Autor: Facundo Nehuen Dorrego
 #include <iostream>
 #include <cstring>
 #include "cargarCadenas.h"

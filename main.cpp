@@ -1,3 +1,4 @@
+//Autor: Facundo Nehuen Dorrego
 #include <iostream>
 #include <cstring>
 #include "menus.h"
@@ -10,6 +11,7 @@ int main(){
         cout << "-------------------------" << endl;
         cout<<"1. MENU JUGADORES"<<endl;
         cout<<"2. MENU DEPORTES"<<endl;
+        cout<<"3. MENU CONFIGURACIONES"<<endl;
         cout << "-------------------------" << endl;
         cout<<"0. FIN DEL PROGRAMA"<<endl;
         cout<<"OPCION: ";
@@ -24,6 +26,10 @@ int main(){
                 menudeportes();
                 break;
 
+            case 3:
+                menuconfiguraciones();
+                break;  
+            
             case 0:
                 return 0;
                 break;

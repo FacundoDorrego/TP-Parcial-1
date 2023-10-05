@@ -27,7 +27,7 @@
 	<iostream>
 	<cstring>
 
-1695696915 source:e:\utn\tp-parcial-1-parte-1\main.cpp
+1696437139 source:e:\utn\tp-parcial-1-parte-1\main.cpp
 	<iostream>
 	<cstring>
 	"menus.h"
@@ -42,23 +42,28 @@
 	<iostream>
 	<cstring>
 
-1695696833 e:\utn\tp-parcial-1-parte-1\fecha.h
+1696288292 e:\utn\tp-parcial-1-parte-1\fecha.h
 	<ctime>
 
-1695698175 e:\utn\tp-parcial-1-parte-1\jugador.h
+1696432252 e:\utn\tp-parcial-1-parte-1\jugador.h
 	<iostream>
 	<cstring>
 	"cargarCadenas.h"
 	"fecha.h"
 	"Deporte.h"
 
-1695696833 e:\utn\tp-parcial-1-parte-1\menus.h
+1696437189 e:\utn\tp-parcial-1-parte-1\menus.h
 	"Jugador.h"
 	"Deporte.h"
+	"Configuracion.h"
 
-1695697320 e:\utn\tp-parcial-1-parte-1\deporte.h
+1696290804 e:\utn\tp-parcial-1-parte-1\deporte.h
 	<iostream>
 	<cstring>
 	"cargarCadenas.h"
 	"fecha.h"
+
+1696437524 e:\utn\tp-parcial-1-parte-1\configuracion.h
+	"Jugador.h"
+	"Deporte.h"
 

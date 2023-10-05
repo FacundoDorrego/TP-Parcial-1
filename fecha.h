@@ -113,22 +113,22 @@ bool Fecha::esFechaValida()
         return false;
     }
 
-    int diasEnMes = 31; // Por defecto, se asumen 31 días
+    int diasEnMes = 31; 
 
     if (_month == 4 || _month == 6 || _month == 9 || _month == 11)
     {
-        diasEnMes = 30; // Abril, junio, septiembre, noviembre tienen 30 días
+        diasEnMes = 30; 
     }
     else if (_month == 2)
     {
-        // Febrero tiene 28 o 29 días dependiendo si es un año bisiesto
+        
         if ((_year % 4 == 0 && _year % 100 != 0) || (_year % 400 == 0))
         {
-            diasEnMes = 29; // Año bisiesto
+            diasEnMes = 29; 
         }
         else
         {
-            diasEnMes = 28; // Año no bisiesto
+            diasEnMes = 28; 
         }
     }
 
