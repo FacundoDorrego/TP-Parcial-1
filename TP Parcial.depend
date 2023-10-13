@@ -67,3 +67,41 @@
 	"Jugador.h"
 	"Deporte.h"
 
+1696509352 source:e:\utn\tp-parcial-1\main.cpp
+	<iostream>
+	<cstring>
+	"menus.h"
+
+1696513278 e:\utn\tp-parcial-1\menus.h
+	"Jugador.h"
+	"Deporte.h"
+	"Configuracion.h"
+	"reportes.h"
+
+1696507773 e:\utn\tp-parcial-1\jugador.h
+	<iostream>
+	<cstring>
+	"cargarCadenas.h"
+	"fecha.h"
+	"Deporte.h"
+
+1695168953 e:\utn\tp-parcial-1\cargarcadenas.h
+	<iostream>
+	<cstring>
+
+1696509826 e:\utn\tp-parcial-1\fecha.h
+	<ctime>
+
+1696513339 e:\utn\tp-parcial-1\deporte.h
+	<iostream>
+	<cstring>
+	"cargarCadenas.h"
+	"fecha.h"
+
+1696505536 e:\utn\tp-parcial-1\configuracion.h
+
+1696513733 e:\utn\tp-parcial-1\reportes.h
+	"deporte.h"
+	"jugador.h"
+	"fecha.h"
+

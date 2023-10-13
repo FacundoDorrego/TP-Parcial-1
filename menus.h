@@ -5,8 +5,10 @@ using namespace std;
 #include "Jugador.h"
 #include "Deporte.h"
 #include "Configuracion.h"
+#include "reportes.h"
 int menujugadores();
 int menudeportes();
+int menureportes();
 int menujugadores(){
     Jugador jugador;
     int opc;
@@ -144,6 +146,52 @@ int menuconfiguraciones(){
 
             case 5:
                 establecerDatosInicio();
+                break;
+
+            case 0:
+                return 0;
+                break;
+
+            default:
+                cout<<"OPCION INCORRECTA";
+                system("pause");
+                break;
+        }
+    }
+    return 0;
+}
+
+int menureportes(){
+    int opc;
+    while(true){
+        cout<<"MENU REPORTES"<<endl;
+        cout << "-------------------------" << endl;
+        cout<<"1. PUNTO 1"<<endl;
+        cout<<"2. PUNTO 2"<<endl;
+        cout << "-------------------------" << endl;
+        cout<<"0. VOLVER AL MENU PRINCIPAL"<<endl;
+        cout<<"OPCION: ";
+        cin>>opc;
+        system("cls");
+        switch (opc){
+            case 1:
+                punto1();
+                break;
+
+            case 2:
+                punto2();
+                mostrarPunto2();
+                break;
+
+            case 3:
+                break;
+
+            case 4:
+
+                break;
+
+            case 5:
+
                 break;
 
             case 0:

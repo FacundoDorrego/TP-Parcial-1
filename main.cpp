@@ -12,6 +12,7 @@ int main(){
         cout<<"1. MENU JUGADORES"<<endl;
         cout<<"2. MENU DEPORTES"<<endl;
         cout<<"3. MENU CONFIGURACIONES"<<endl;
+        cout<<"4. MENU REPORTES"<<endl;
         cout << "-------------------------" << endl;
         cout<<"0. FIN DEL PROGRAMA"<<endl;
         cout<<"OPCION: ";
@@ -28,8 +29,12 @@ int main(){
 
             case 3:
                 menuconfiguraciones();
-                break;  
-            
+                break;
+
+            case 4:
+                menureportes();
+                break;
+
             case 0:
                 return 0;
                 break;

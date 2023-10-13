@@ -15,13 +15,13 @@ int obtenerNuevoIDDeporte();
 
 class Deporte{
 private:
-    
+
     char nombre[30];
     int tipo,id;
     Fecha anioOrigen;
     bool estado;
-
-public: 
+    int cantidadInscriptos;
+public:
     Deporte (int t=0,int i=0,const char *nom="???",Fecha anio=Fecha() ,bool e = false){
         strcpy(nombre,nom);
         id=i;
@@ -30,9 +30,9 @@ public:
         estado=e;
     }
     void CargarDatos();
-    void MostrarDatos(); 
+    void MostrarDatos();
 
-    void guardar() {  
+    void guardar() {
         FILE* archivo = fopen("deportes.dat", "ab");
         if (archivo != NULL) {
                 fwrite(this, sizeof(Deporte), 1, archivo);
@@ -41,7 +41,7 @@ public:
             cout << "Error al abrir el archivo para escritura." << endl;
             }
     }
-     
+    
     void setNombre(const char *nom){
         strcpy(nombre,nom);
         }
@@ -58,7 +58,7 @@ public:
         anioOrigen=fecha;
         }
 
-    
+
     const char *getNombre(){
         return nombre;
         }
@@ -68,32 +68,34 @@ public:
      int getID(){
         return id;
         }
-    Fecha getyear(){
+    Fecha getOrigen(){
         return anioOrigen;
         }
+
     bool getEstado(){
         return estado;
         }
+
 };
 
 Deporte leerID(int pos);
 
 Deporte leerID(int pos){
-    Deporte reg;  
+    Deporte reg;
     FILE* archivo = fopen("deportes.dat", "rb");
-    int posLectura=0;  
+    int posLectura=0;
     if(archivo==NULL){
         cout<<"Error al abrir el archivo de lectura";
         return reg;
-        }   
-    while (fread(&reg, sizeof(Deporte), 1, archivo)==1) {       
+        }
+    while (fread(&reg, sizeof(Deporte), 1, archivo)==1) {
         if(pos==posLectura){
             fclose(archivo);
             return reg;
             }
-        
+
         posLectura++;
-    }   
+    }
     fclose(archivo);
     return reg;
 }
@@ -102,14 +104,14 @@ void Deporte::CargarDatos(){
     int day,month,year;
     Deporte reg;
     setEstado(true);
-    int nuevoID = obtenerNuevoIDDeporte(); 
+    int nuevoID = obtenerNuevoIDDeporte();
     cout << "ID:" << nuevoID << endl;
     if (nuevoID < 1 || nuevoID > 10) {
         cout << "El ID debe estar en el rango de 1 al 10." << endl;
         setEstado(false);
         return;
     }
-    setID(nuevoID); 
+    setID(nuevoID);
     int posExistente = buscarIDDeporte(id);
     if (posExistente != -1) {
         Deporte regExistente = leerID(posExistente);
@@ -142,16 +144,16 @@ void Deporte::MostrarDatos(){
     cout << "ESTADO: " << estado << endl;
 }
 
-int buscarIDDeporte(int numid){   
+int buscarIDDeporte(int numid){
     FILE* archivo = fopen("deportes.dat", "rb");
     int pos=0;
     if (archivo != NULL) {
-        Deporte reg; 
+        Deporte reg;
         while (fread(&reg, sizeof(Deporte), 1, archivo)){
             if(numid==reg.getID()){
                 fclose(archivo);
                 return pos;
-            }  
+            }
             pos++;
         }
     }
@@ -236,7 +238,7 @@ bool modOrigenDeporte(){
 }
 
 int obtenerNuevoIDDeporte() {
-    FILE* archivo = fopen("deportes.dat", "rb"); 
+    FILE* archivo = fopen("deportes.dat", "rb");
     if (archivo != NULL) {
         // Se guardan los id utilizados, cambiando el valor del vector - ID a true o false.
         bool idsUtilizados[10] = {false};
@@ -278,4 +280,4 @@ void ListarTodoDeporte() {
             cout << "Error al abrir el archivo para lectura." << endl;
         }
     }
-#endif 
+#endif

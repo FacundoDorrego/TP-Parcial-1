@@ -138,7 +138,7 @@ void Jugador::CargarDatos(){
             cout << "El DNI ya existe en el registro. No se permite duplicar DNI." << endl;
             setEstado(false);
             return;
-            } 
+            }
         }
         //Si pasa la comprobacion, se asigna el DNI
         setDNI(dni);
@@ -165,7 +165,7 @@ void Jugador::CargarDatos(){
         //Abre deportes.dat en archivoDeportes
         FILE* archivoDeportes = fopen("deportes.dat", "rb");
         if (archivoDeportes != NULL) {
-            //Verifica si existe dicha ID en deportes.dat
+            //Verifica si existe ese ID en deportes.dat
             int posExistenteID = buscarIDDeporte(deporte);
             //Guarda el registro encontrado en el objeto Reg
             reg=leerID(posExistenteID);
@@ -183,7 +183,7 @@ void Jugador::CargarDatos(){
                 setEstado(false);
                 return;
                 }
-    //Si pasa las verificaciones, el Deporte es asignado y el archivo se cierra.
+    //Cierre de archivo
     fclose(archivoDeportes);
     } while (deporte<1||deporte>10);
     cout<<"NUMERO DE EQUIPO: ";
@@ -272,7 +272,7 @@ bool borrarJugador(){
     //Aca guardo el estado falso
     Jugador jugadorborrado;
     jugadorborrado.setEstado(false);
-    //Se escribre en el archivo el objeto
+    //Se escribe en el archivo el objeto
     fwrite(&jugadorborrado,sizeof(Jugador),1,archivo);
     fclose(archivo);
     cout<<"Jugador con DNI "<< docuDni <<" borrado exitosamente."<<endl;
@@ -284,7 +284,7 @@ bool modFechaJugador(){
     int docuDni,day,month,year;
     //Apertura de archivo
     FILE* archivo = fopen("jugadores.dat", "rb+");
-    if(archivo == NULL){ 
+    if(archivo == NULL){
         return false;
     }
     cout<<"Introducir DNI del registro a modificar: ";
@@ -355,14 +355,14 @@ Jugador leerDNIJugador(int pos) {
         //En caso de que pos sea igual a posLectura, cierra el archivo y devuelve ese registro
         if (pos == posLectura) {
             fclose(archivo);
-            return reg; 
+            return reg;
         }
         //En caso de no encontrar la posicion indicada, aumenta posLectura.
         posLectura++;
     }
     //Cierre de archivo
     fclose(archivo);
-    return reg; 
+    return reg;
 }
 
 
@@ -383,7 +383,7 @@ bool ListarDNIJugador() {
             encontrado = true;
             cout << "DNI encontrado y es el siguiente:" << endl;
             reg.MostrarDatos();
-            break; 
+            break;
         }
     }
     fclose(archivo);

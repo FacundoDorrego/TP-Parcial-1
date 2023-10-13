@@ -9,7 +9,7 @@
             "name": "(gdb) Iniciar",
             "type": "cppdbg",
             "request": "launch",
-            "program": "E:/UTN/TP-Parcial-1-Parte-1/main.exe",
+            "program": "E:/UTN/TP-Parcial-1/main.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

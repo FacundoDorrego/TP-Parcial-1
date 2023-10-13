@@ -15,6 +15,7 @@ public:
   int getDay() ;
   void setDay(int day);
   bool esFechaValida();
+  bool esAnioIgual(int year) const;
   //Revisar sobrecargas de comparaciones
 bool operator<(const Fecha& otraFecha) const {
     if (_year < otraFecha._year)
@@ -69,7 +70,7 @@ Fecha::Fecha(int day, int month, int year)
   setYear(year);
 }
 
-int Fecha::getYear() 
+int Fecha::getYear()
 {
   return _year;
 }
@@ -106,29 +107,28 @@ void Fecha::setDay(int day)
   }
 }
 
-bool Fecha::esFechaValida()
-{
+bool Fecha::esFechaValida(){
     if (_year < 1 || _month < 1 || _month > 12 || _day < 1)
     {
         return false;
     }
 
-    int diasEnMes = 31; 
+    int diasEnMes = 31;
 
     if (_month == 4 || _month == 6 || _month == 9 || _month == 11)
     {
-        diasEnMes = 30; 
+        diasEnMes = 30;
     }
     else if (_month == 2)
     {
-        
+
         if ((_year % 4 == 0 && _year % 100 != 0) || (_year % 400 == 0))
         {
-            diasEnMes = 29; 
+            diasEnMes = 29;
         }
         else
         {
-            diasEnMes = 28; 
+            diasEnMes = 28;
         }
     }
 
@@ -139,6 +139,7 @@ bool Fecha::esFechaValida()
 
     return true;
 }
+
 
 
 #endif // FECHA_H_INCLUDED
